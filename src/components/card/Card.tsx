@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { Variant } from "../../anims"
-import { Image } from "../Image"
+import { Image } from "../image"
 import { Skeleton } from "../Skeleton"
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {

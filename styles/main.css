@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+html {
     @apply bg-bg-default text-text-default;
     font-family: "Fredoka", "Arial", sans-serif;
+    width: 100vw;
 }
