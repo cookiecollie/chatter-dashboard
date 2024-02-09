@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-    @apply bg-bg-default;
+    @apply bg-bg-default text-text-default;
     font-family: "Fredoka", "Arial", sans-serif;
 }

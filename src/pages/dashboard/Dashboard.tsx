@@ -1,4 +1,5 @@
 import { Card } from "../../components/card"
+import { ProgressBar } from "../../components/progress-bar"
 
 export const Dashboard = () => {
     return (
@@ -16,7 +17,10 @@ export const Dashboard = () => {
                                     cookiecollie
                                 </p>
 
-                                <div>XP</div>
+                                <div className="flex items-center gap-4">
+                                    <span className="font-semibold">XP</span>
+                                    <ProgressBar value={100} />
+                                </div>
                             </div>
                         </Card>
                     ))}
