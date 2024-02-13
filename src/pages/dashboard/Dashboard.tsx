@@ -1,4 +1,6 @@
+import { Button } from "../../components/button"
 import { Card } from "../../components/card"
+import { Image } from "../../components/image"
 import { Modal } from "../../components/modal"
 import { ProgressBar } from "../../components/progress-bar"
 import { Hooks } from "../../utils"
@@ -12,7 +14,19 @@ export const Dashboard = () => {
                 isOpen={userModalDisc.isOpen}
                 onClose={userModalDisc.onClose}
             >
-                <Modal.Body />
+                <div className="flex h-full px-4">
+                    <div className="flex flex-col gap-4">
+                        <Image src="https://static-cdn.jtvnw.net/jtv_user_pictures/b5235413-c5b7-4b70-9444-b5de000a846d-profile_image-300x300.png" />
+
+                        <div className="flex flex-col items-center">
+                            <p className="text-3xl font-medium">cookiecollie</p>
+                            <Button variant="outline" colorScheme="twitch">
+                                Channel
+                            </Button>
+                        </div>
+                    </div>
+                    <div />
+                </div>
             </Modal>
 
             <div className="grid grid-cols-5 gap-x-6 gap-y-8 p-6 px-12">

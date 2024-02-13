@@ -1,3 +1,5 @@
+@import "/src/components/button/style-button.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,4 +8,14 @@ html {
     @apply bg-bg-default text-text-default;
     font-family: "Fredoka", "Arial", sans-serif;
     width: 100vw;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-is-open {
+    overflow: hidden;
 }

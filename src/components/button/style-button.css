@@ -1,0 +1,56 @@
+.button,
+.button-fill,
+.button-outline,
+.button-ghost {
+    @apply relative h-12 overflow-hidden rounded-xl px-5 font-medium transition-all;
+}
+
+.button-fill-primary,
+.button-fill-error,
+.button-fill-twitch {
+    @apply text-text-white;
+}
+
+.button-outline-primary,
+.button-outline-error,
+.button-outline-twitch {
+    @apply border border-solid outline-none;
+}
+
+.button-ghost-primary,
+.button-ghost-error,
+.button-ghost-twitch {
+}
+
+.button-fill {
+    &-primary {
+        @apply bg-primary;
+    }
+    &-error {
+    }
+    &-twitch {
+        @apply bg-brand-twitch;
+    }
+}
+
+.button-outline {
+    &-primary {
+        @apply border-primary text-primary;
+    }
+    &-error {
+    }
+    &-twitch {
+        @apply text-brand-twitch border-brand-twitch;
+    }
+}
+
+.button-ghost {
+    &-primary {
+        @apply text-primary;
+    }
+    &-error {
+    }
+    &-twitch {
+        @apply text-brand-twitch outline-brand-twitch;
+    }
+}

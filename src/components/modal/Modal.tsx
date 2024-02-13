@@ -6,15 +6,17 @@ import { PiXBold } from "react-icons/pi"
 interface ModalProps extends React.PropsWithChildren {
     onClose: () => void
     isOpen: boolean
+    blockScrolling?: boolean
 }
 
 export const Modal = (props: ModalProps) => {
-    const { isOpen, onClose, children } = props
+    const { isOpen, onClose, children, blockScrolling = true } = props
 
     useEffect(() => {
-        if (isOpen) document.body.style.overflow = "hidden"
+        if (isOpen && blockScrolling)
+            document.body.classList.add("modal-is-open")
         else {
-            document.body.style.overflow = "auto"
+            document.body.classList.remove("modal-is-open")
         }
     }, [isOpen])
 
@@ -23,11 +25,11 @@ export const Modal = (props: ModalProps) => {
             className={`${isOpen ? "" : "pointer-events-none hidden"} absolute z-10 h-full w-full`}
         >
             <div
-                className="absolute h-full w-full bg-slate-500/20"
+                className="fixed h-[100vh] w-full bg-slate-500/20"
                 onClick={onClose}
             />
-            <div className="pointer-events-none absolute flex h-full w-full items-center justify-center">
-                <div className="pointer-events-auto flex aspect-video w-[36rem] max-w-xl flex-col rounded-2xl bg-secondary py-4">
+            <div className="pointer-events-none fixed flex h-full w-full items-center justify-center">
+                <div className="pointer-events-auto flex aspect-video w-full max-w-4xl flex-col rounded-2xl bg-secondary py-4">
                     <div className="relative">
                         <span
                             className="absolute right-6 rounded-full p-2 transition-all hover:bg-slate-300/20 active:bg-slate-300/30"
