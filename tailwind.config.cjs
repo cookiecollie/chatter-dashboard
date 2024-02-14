@@ -10,7 +10,14 @@ module.exports = {
                 primary: "#135CFE",
                 secondary: "#ffffff",
                 tertiary: "#FE483B",
-                text: { default: "#16161d", white: "#ffffff" },
+                text: {
+                    default: "#16161de0",
+                    white: "#ffffffd9",
+                    secondary: "#000000A6",
+                    disabled: "#00000040",
+                    border: "#D9D9D9FF",
+                    separator: "#0505050F",
+                },
                 brand: {
                     twitch: "#b9a3e3",
                 },

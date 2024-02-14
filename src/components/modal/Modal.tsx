@@ -32,7 +32,7 @@ export const Modal = (props: ModalProps) => {
                 <div className="pointer-events-auto flex aspect-video w-full max-w-4xl flex-col rounded-2xl bg-secondary py-4">
                     <div className="relative">
                         <span
-                            className="absolute right-6 rounded-full p-2 transition-all hover:bg-slate-300/20 active:bg-slate-300/30"
+                            className="absolute right-6 cursor-pointer rounded-full p-2 transition-all hover:bg-slate-300/20 active:bg-slate-300/30"
                             onClick={onClose}
                         >
                             <IconContext.Provider value={{ size: "24px" }}>
