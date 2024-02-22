@@ -13,3 +13,27 @@ export const CardVariant: Variants = {
         y: -3,
     },
 }
+
+export const ColorFade = (startColor: string, endColor: string) => {
+    const variant: Variants = {
+        start: {
+            color: startColor,
+        },
+        end: { color: endColor },
+    }
+    return variant
+}
+
+export const FadeHorizontal = (initialX: number) => {
+    const variant: Variants = {
+        start: {
+            x: initialX,
+            opacity: 0,
+        },
+        end: {
+            x: 0,
+            opacity: 1,
+        },
+    }
+    return variant
+}

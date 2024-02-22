@@ -1,7 +1,7 @@
 import { PiTwitchLogoFill } from "react-icons/pi"
-import { Button } from "../../components/button"
 import { Card } from "../../components/card"
 import { Image } from "../../components/image"
+import { LinkButton } from "../../components/link-button"
 import { Modal } from "../../components/modal"
 import { ProgressBar } from "../../components/progress-bar"
 import { TextCopy } from "../../components/text-copy"
@@ -47,13 +47,12 @@ export const Dashboard = () => {
                                 <p>Broadcaster</p>
                             </div>
 
-                            <Button
-                                variant="fill"
-                                colorScheme="twitch"
+                            <LinkButton
                                 icon={<PiTwitchLogoFill />}
+                                href="https://www.twitch.tv/cookiecollie"
                             >
-                                Visit channel
-                            </Button>
+                                Twitch
+                            </LinkButton>
                         </div>
                     </div>
 
