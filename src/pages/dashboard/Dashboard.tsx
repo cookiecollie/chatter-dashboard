@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { getAllChatters } from "../../api"
-import { Skeleton } from "../../components/Skeleton"
 import { ChatterCard } from "../../components/card"
 import { ChatterModal } from "../../components/modal"
+import { Skeleton } from "../../components/skeleton"
 import { Hooks, Interfaces } from "../../utils"
 
 export const Dashboard = () => {
@@ -22,7 +22,7 @@ export const Dashboard = () => {
         id: "",
         login: "",
         profile_image_url: "",
-        type: "",
+        type: "normal",
     })
 
     const handleCardClick = (chatter: Interfaces.Chatter) => {

@@ -30,7 +30,7 @@ export const ChatterModal = (props: ChatterModalProps) => {
                                 {chatter.display_name}
                             </TextCopy>
 
-                            <p>{chatter.type}</p>
+                            <p>{Interfaces.ChatterType[chatter.type]}</p>
                         </div>
 
                         <LinkButton

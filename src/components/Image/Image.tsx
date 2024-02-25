@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Skeleton } from "../Skeleton"
+import { Skeleton } from "../skeleton"
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
 

@@ -37,3 +37,19 @@ export const FadeHorizontal = (initialX: number) => {
     }
     return variant
 }
+
+export const FadeVertical = (initialY: number) => {
+    const variant: Variants = {
+        start: {
+            y: initialY,
+            opacity: 0,
+            transitionEnd: { userSelect: "none" },
+        },
+        end: {
+            y: 0,
+            opacity: 1,
+            userSelect: "auto",
+        },
+    }
+    return variant
+}

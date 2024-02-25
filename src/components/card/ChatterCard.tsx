@@ -23,7 +23,9 @@ export const ChatterCard = (props: ChatterCardProps) => {
                         {chatter.display_name}
                     </p>
 
-                    <p className="text-sm">{chatter.type}</p>
+                    <p className="text-sm">
+                        {Interfaces.ChatterType[chatter.type]}
+                    </p>
                 </div>
 
                 <div className="flex items-center gap-2">

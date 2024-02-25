@@ -3,7 +3,7 @@ export interface Chatter {
     id: string
     login: string
     profile_image_url: string
-    type: string
+    type: keyof typeof ChatterType
 }
 
 export enum ChatterType {
