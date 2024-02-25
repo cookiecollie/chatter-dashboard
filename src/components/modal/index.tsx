@@ -1,2 +1,3 @@
+import { ChatterModal } from "./ChatterModal"
 import { Modal } from "./Modal"
-export { Modal }
+export { ChatterModal, Modal }

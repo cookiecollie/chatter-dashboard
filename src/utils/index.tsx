@@ -1,2 +1,3 @@
 import * as Hooks from "./Hooks"
-export { Hooks }
+import * as Interfaces from "./Interfaces"
+export { Hooks, Interfaces }

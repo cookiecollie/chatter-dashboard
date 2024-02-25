@@ -5,7 +5,7 @@ interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Skeleton = (props: SkeletonProps) => {
-    const { isLoaded, children, ...others } = props
+    const { isLoaded = false, children, ...others } = props
     return (
         <>
             <motion.div

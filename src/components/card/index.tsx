@@ -1,2 +1,3 @@
 import { Card } from "./Card"
-export { Card }
+import { ChatterCard } from "./ChatterCard"
+export { Card, ChatterCard }

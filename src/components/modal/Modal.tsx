@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { IconContext } from "react-icons/lib"
 import { PiXBold } from "react-icons/pi"
 
-interface ModalProps extends React.PropsWithChildren {
+export interface ModalProps extends React.PropsWithChildren {
     onClose: () => void
     isOpen: boolean
     blockScrolling?: boolean
