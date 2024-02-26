@@ -1,0 +1,53 @@
+.menu {
+    @apply relative;
+}
+
+.menu-label {
+    @apply relative h-full select-none text-lg font-medium;
+}
+
+.menu-indicator {
+    @apply absolute left-0 top-full flex h-0.5 w-full [&>span>span]:h-full [&>span>span]:bg-primary;
+}
+
+.menu-container {
+    @apply absolute flex w-full justify-center;
+}
+
+.menu-container {
+    &.top {
+        @apply bottom-full mb-4;
+    }
+}
+
+.menu-content {
+    @apply bg-bg-white min-w-48 whitespace-nowrap rounded-lg p-2;
+}
+
+.menu-content::before {
+    content: "";
+    @apply absolute;
+}
+
+.menu-content {
+    &.top {
+        @apply bottom-full;
+        filter: drop-shadow(0 4px 6px rgb(0 0 0/0.1))
+            drop-shadow(0 -1px 6px rgb(0 0 0/0.1));
+    }
+
+    &.top::before {
+        @apply left-[50%] top-full -ml-2;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid #fff;
+    }
+}
+
+.menu-item {
+    @apply flex select-none rounded-lg p-2 hover:bg-primary hover:text-text-white;
+}
+
+.menu-backdrop {
+    @apply mt-4 h-full w-full;
+}

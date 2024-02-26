@@ -3,7 +3,7 @@
 }
 
 .tooltip-wrapper {
-    @apply absolute flex w-full justify-center bg-primary/30;
+    @apply absolute flex w-full justify-center;
 }
 
 .tooltip-wrapper {

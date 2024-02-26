@@ -1,7 +1,7 @@
 @import "./button/style-button.css";
 @import "./tooltip/style-tooltip.css";
+@import "./menu/style-menu.css";
 /* @import "./icon-button/style-icon-button.css"; */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

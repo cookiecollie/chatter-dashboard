@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 import { Variant } from "../../anims"
 
@@ -31,17 +31,23 @@ export const Tooltip = (props: TooltipProps) => {
                 {children}
             </div>
 
-            <motion.div
-                className={`tooltip-wrapper ${position} ${isHovered ? "inline" : ""}`}
-                variants={animVariants[position]}
-                initial="start"
-                animate={isHovered ? "end" : "start"}
-                onAnimationComplete={onAnimationComplete}
-            >
-                <div className="relative">
-                    <div className={`tooltip-content ${position}`}>{label}</div>
-                </div>
-            </motion.div>
+            <AnimatePresence onExitComplete={onAnimationComplete}>
+                {isHovered && (
+                    <motion.div
+                        className={`tooltip-wrapper ${position} ${isHovered ? "inline" : ""}`}
+                        variants={animVariants[position]}
+                        initial="start"
+                        animate="end"
+                        exit={"start"}
+                    >
+                        <div className="relative">
+                            <div className={`tooltip-content ${position}`}>
+                                {label}
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }

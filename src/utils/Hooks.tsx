@@ -8,3 +8,14 @@ export const useDisclosure = () => {
 
     return { isOpen, onOpen, onClose }
 }
+
+export const useToggle = (initial = false) => {
+    const [state, setState] = useState(initial)
+
+    const toggle = () => {
+        if (state) setState(false)
+        else setState(true)
+    }
+
+    return { state, toggle }
+}

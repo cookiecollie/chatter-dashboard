@@ -26,6 +26,7 @@ export const Modal = (props: ModalProps) => {
     const transition: Transition = {
         ease: "easeOut",
         duration: 0.3,
+        type: "spring",
     }
 
     return (

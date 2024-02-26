@@ -85,3 +85,31 @@ export const FadeScale = (initialScale: number) => {
 
     return variant
 }
+
+export const MenuVariant = (position: "top" | "left" | "bottom" | "right") => {
+    const startClipPath =
+        position === "top" ? "rect(100% 0% 100% 100% round 0%)" : ""
+
+    const endClipPath =
+        position === "top" ? "rect(100% 0% 0% 100% round 0%)" : ""
+
+    const variant: Variants = {
+        start: {
+            clipPath: startClipPath,
+        },
+        end: {
+            clipPath: endClipPath,
+        },
+    }
+
+    return variant
+}
+
+export const HorizontalExpand: Variants = {
+    start: {
+        width: 0,
+    },
+    end: {
+        width: "100%",
+    },
+}
