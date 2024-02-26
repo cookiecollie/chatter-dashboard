@@ -3,7 +3,9 @@ import { getAllChatters } from "../../api"
 import { ChatterCard } from "../../components/card"
 import { ChatterModal } from "../../components/modal"
 import { Skeleton } from "../../components/skeleton"
+import { Timeout } from "../../components/timeout"
 import { Hooks, Interfaces } from "../../utils"
+import { NotFound } from "../not-found"
 
 export const Dashboard = () => {
     const userModalDisc = Hooks.useDisclosure()
@@ -34,35 +36,50 @@ export const Dashboard = () => {
         <>
             <ChatterModal
                 chatter={selectedChatter}
-                onClose={userModalDisc.onClose}
+                onClose={() => {
+                    userModalDisc.onClose()
+                    setSelectedChatter({
+                        display_name: "",
+                        id: "",
+                        login: "",
+                        profile_image_url: "",
+                        type: "normal",
+                    })
+                }}
                 isOpen={userModalDisc.isOpen}
             />
 
-            <div className="grid grid-cols-5 gap-x-6 gap-y-8 p-6 px-40">
-                {isLoaded
-                    ? chatters.map((chatter) => (
-                          <div
-                              key={`chatter-${chatter.id}`}
-                              className="cursor-pointer rounded-2xl"
-                          >
-                              <ChatterCard
-                                  chatter={chatter}
-                                  progressValue={100}
-                                  onClick={() => handleCardClick(chatter)}
-                              />
-                          </div>
-                      ))
-                    : Array(15)
-                          .fill(0)
-                          .map((e, i) => (
-                              <div
-                                  key={`card-${i}`}
-                                  className="aspect-square h-full w-full overflow-hidden rounded-2xl"
-                              >
-                                  <Skeleton />
-                              </div>
-                          ))}
-            </div>
+            {isLoaded ? (
+                <div className="grid grid-cols-5 gap-x-6 gap-y-8 p-6 px-40">
+                    {chatters.map((chatter) => (
+                        <div
+                            key={`chatter-${chatter.id}`}
+                            className="cursor-pointer rounded-2xl"
+                        >
+                            <ChatterCard
+                                chatter={chatter}
+                                progressValue={100}
+                                onClick={() => handleCardClick(chatter)}
+                            />
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <Timeout timeout={2000} toElement={<NotFound />}>
+                    <div className="grid grid-cols-5 gap-x-6 gap-y-8 p-6 px-40">
+                        {Array(15)
+                            .fill(0)
+                            .map((e, i) => (
+                                <div
+                                    key={`card-${i}`}
+                                    className="aspect-square h-full w-full overflow-hidden rounded-2xl"
+                                >
+                                    <Skeleton />
+                                </div>
+                            ))}
+                    </div>
+                </Timeout>
+            )}
         </>
     )
 }

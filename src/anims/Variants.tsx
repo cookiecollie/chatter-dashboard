@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion"
+import { Transition, Variants } from "framer-motion"
 
 export const SkeletonFade: Variants = {
     indefinite: {
@@ -51,5 +51,37 @@ export const FadeVertical = (initialY: number) => {
             userSelect: "auto",
         },
     }
+    return variant
+}
+
+export const Fade = (duration: number) => {
+    const variant: Variants = {
+        start: {
+            opacity: 0,
+        },
+        end: {
+            opacity: 1,
+        },
+    }
+
+    const transition: Transition = {
+        duration: duration,
+    }
+
+    return { variant, transition }
+}
+
+export const FadeScale = (initialScale: number) => {
+    const variant: Variants = {
+        start: {
+            scale: initialScale,
+            opacity: 0,
+        },
+        end: {
+            scale: 1,
+            opacity: 1,
+        },
+    }
+
     return variant
 }

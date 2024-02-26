@@ -1,3 +1,4 @@
 import * as Hooks from "./Hooks"
 import * as Interfaces from "./Interfaces"
-export { Hooks, Interfaces }
+import { Router } from "./Router"
+export { Hooks, Interfaces, Router }
