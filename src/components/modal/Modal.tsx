@@ -14,11 +14,8 @@ export const Modal = (props: ModalProps) => {
     const { isOpen, onClose, children, blockScrolling = true } = props
 
     useEffect(() => {
-        if (isOpen && blockScrolling)
-            document.body.classList.add("modal-is-open")
-        else {
-            document.body.classList.remove("modal-is-open")
-        }
+        if (isOpen && blockScrolling) document.body.classList.add("no-scroll")
+        else document.body.classList.remove("no-scroll")
     }, [isOpen])
 
     const contentVariant = Variant.FadeScale(0.8)

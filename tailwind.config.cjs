@@ -15,6 +15,13 @@ module.exports = {
                 container: "#f2f2f2",
                 black: "#16161de0",
                 white: "#ffffffd9",
+                gray: {
+                    separator: "#0505050F",
+                    border: "#D9D9D9",
+                    default: "#6b7280",
+                    disabled: "#00000040",
+                },
+
                 disabled: "#00000040",
                 border: "#D9D9D9FF",
                 separator: "#0505050F",
