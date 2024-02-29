@@ -1,56 +1,67 @@
-.button,
-.button-fill,
-.button-outline,
-.button-ghost {
+.button {
     @apply relative h-12 overflow-hidden rounded-xl px-5 font-medium transition-all;
 }
 
-.button-fill-primary,
-.button-fill-error,
-.button-fill-twitch {
-    @apply text-text-white;
-}
-
-.button-outline-primary,
-.button-outline-error,
-.button-outline-twitch {
-    @apply border border-solid outline-none;
-}
-
-.button-ghost-primary,
-.button-ghost-error,
-.button-ghost-twitch {
-}
-
-.button-fill {
-    &-primary {
-        @apply bg-primary;
+.button {
+    &.fill {
+        &.primary,
+        &.error,
+        &.twitch {
+            @apply text-white;
+        }
     }
-    &-error {
+    &.ghost {
+        &.primary,
+        &.error,
+        &.twitch {
+        }
     }
-    &-twitch {
-        @apply bg-brand-twitch hover:bg-brand-twitch/80 active:bg-brand-twitch/50;
+    &.outline {
+        &.primary,
+        &.error,
+        &.twitch {
+            @apply border border-solid outline-none;
+        }
     }
 }
 
-.button-outline {
-    &-primary {
-        @apply border-primary text-primary;
-    }
-    &-error {
-    }
-    &-twitch {
-        @apply border-brand-twitch text-brand-twitch;
-    }
-}
+.button {
+    &.fill {
+        &.primary {
+            @apply bg-primary hover:bg-primary/80 active:bg-primary/50;
+        }
 
-.button-ghost {
-    &-primary {
-        @apply text-primary;
+        &.error {
+        }
+
+        &.twitch {
+            @apply bg-brand-twitch hover:bg-brand-twitch/80 active:bg-brand-twitch/50;
+        }
     }
-    &-error {
+
+    &.outline {
+        &.primary {
+            @apply border-primary text-primary;
+        }
+
+        &.error {
+        }
+
+        &.twitch {
+            @apply border-brand-twitch text-brand-twitch;
+        }
     }
-    &-twitch {
-        @apply text-brand-twitch outline-brand-twitch;
+
+    &.ghost {
+        &.primary {
+            @apply text-primary;
+        }
+
+        &.error {
+        }
+
+        &.twitch {
+            @apply text-brand-twitch outline-brand-twitch;
+        }
     }
 }

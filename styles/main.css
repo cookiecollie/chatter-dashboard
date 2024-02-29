@@ -1,13 +1,13 @@
 @import "./button/style-button.css";
 @import "./tooltip/style-tooltip.css";
 @import "./menu/style-menu.css";
-/* @import "./icon-button/style-icon-button.css"; */
+@import "./icon-button/style-icon-button.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html {
-    @apply bg-bg-default text-text-default;
+    @apply bg-container text-black;
     font-family: "Fredoka", "Arial", sans-serif;
     width: 100vw;
     -ms-overflow-style: none;

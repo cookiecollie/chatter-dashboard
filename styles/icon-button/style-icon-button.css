@@ -1,0 +1,58 @@
+.icon-button {
+    @apply flex aspect-square h-12 items-center justify-center rounded-xl transition-all;
+}
+
+.icon-button {
+    &.fill {
+        @apply text-white;
+    }
+
+    &.ghost {
+    }
+
+    &.outline {
+        @apply border border-solid outline-none;
+    }
+}
+
+.icon-button {
+    &.fill {
+        &.primary {
+            @apply bg-primary hover:bg-primary/80 active:bg-primary/50;
+        }
+
+        &.error {
+        }
+
+        &.twitch {
+        }
+    }
+
+    &.ghost {
+        &.primary {
+            @apply text-primary;
+        }
+
+        &.error {
+        }
+
+        &.twitch {
+        }
+
+        &.neutral {
+            @apply text-black;
+        }
+    }
+
+    &.outline {
+        &.primary {
+            @apply border-primary text-primary hover:bg-primary/10;
+        }
+
+        &.error {
+        }
+
+        &.twitch {
+        }
+    }
+}

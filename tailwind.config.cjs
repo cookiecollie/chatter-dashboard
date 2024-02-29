@@ -8,9 +8,17 @@ module.exports = {
                     default: "#E2EFF7",
                     white: "#ffffff",
                 },
+
                 primary: "#135CFE",
                 secondary: "#ffffff",
                 tertiary: "#FE483B",
+                container: "#f2f2f2",
+                black: "#16161de0",
+                white: "#ffffffd9",
+                disabled: "#00000040",
+                border: "#D9D9D9FF",
+                separator: "#0505050F",
+
                 text: {
                     default: "#16161de0",
                     white: "#ffffffd9",

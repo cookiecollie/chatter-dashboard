@@ -1,19 +1,23 @@
+import { IconContext } from "react-icons/lib"
+
 interface IconButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    colorHex?: string
+    colorScheme?: "primary" | "error" | "twitch" | "neutral"
+    variant?: "fill" | "ghost" | "outline"
 }
 
 export const IconButton = (props: IconButtonProps) => {
-    const { children, colorHex = "#16161de0", ...others } = props
+    const {
+        children,
+        colorScheme = "primary",
+        variant = "fill",
+        ...others
+    } = props
     return (
-        <button
-            {...others}
-            className=""
-            style={{
-                color: colorHex,
-            }}
-        >
-            {children}
+        <button {...others} className={`icon-button ${variant} ${colorScheme}`}>
+            <IconContext.Provider value={{ size: "24px" }}>
+                {children}
+            </IconContext.Provider>
         </button>
     )
 }
