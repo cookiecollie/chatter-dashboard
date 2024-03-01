@@ -2,6 +2,8 @@
 @import "./tooltip/style-tooltip.css";
 @import "./menu/style-menu.css";
 @import "./icon-button/style-icon-button.css";
+@import "./modal/style-modal.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

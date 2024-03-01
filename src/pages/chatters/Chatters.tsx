@@ -6,8 +6,8 @@ import { IconButton } from "../../components/icon-button"
 import { ChatterModal } from "../../components/modal"
 import { Skeleton } from "../../components/skeleton"
 import { Timeout } from "../../components/timeout"
+import { ChattersFragments } from "../../fragments"
 import { Hooks, Interfaces } from "../../utils"
-import { FetchFailed } from "./FetchFailed"
 
 export const Chatters = () => {
     const userModalDisc = Hooks.useDisclosure()
@@ -79,7 +79,10 @@ export const Chatters = () => {
                         ))}
                     </div>
                 ) : (
-                    <Timeout timeout={2000} toElement={<FetchFailed />}>
+                    <Timeout
+                        timeout={2000}
+                        toElement={<ChattersFragments.FetchFailed />}
+                    >
                         <div className="grid grid-cols-5 gap-x-6 gap-y-8 p-6 px-40">
                             {Array(15)
                                 .fill(0)

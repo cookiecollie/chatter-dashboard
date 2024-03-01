@@ -80,3 +80,17 @@ export const Drawer = (props: DrawerProps) => {
         </AnimatePresence>
     )
 }
+
+const Body = (props: React.HTMLAttributes<HTMLDivElement>) => {
+    const { children, ...others } = props
+
+    return (
+        <div
+            {...others}
+            className="h-[calc(100%-80px)] overflow-auto px-6 pb-6"
+        >
+            {children}
+        </div>
+    )
+}
+Drawer.Body = Body

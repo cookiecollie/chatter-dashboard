@@ -1,0 +1,36 @@
+.modal {
+    @apply absolute z-10 h-full w-full;
+}
+
+.modal-backdrop {
+    @apply fixed h-[100vh] w-full bg-slate-500/20;
+}
+
+.modal-container {
+    @apply pointer-events-none fixed flex h-full w-full items-center justify-center;
+}
+
+.modal-container {
+    .inner {
+        @apply pointer-events-auto flex w-fit min-w-[256px] max-w-4xl flex-col rounded-2xl bg-secondary py-4;
+    }
+
+    .inner {
+        &.video {
+            &.horizontal {
+                @apply aspect-video;
+            }
+            &.vertical {
+                @apply aspect-[9/16];
+            }
+        }
+
+        &.square {
+            @apply aspect-square;
+        }
+    }
+
+    .close {
+        @apply absolute right-6 cursor-pointer rounded-full p-2 transition-all hover:bg-slate-300/20 active:bg-slate-300/30;
+    }
+}

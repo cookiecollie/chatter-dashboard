@@ -14,6 +14,7 @@ import { Footer } from "./components/footer"
 import { Header } from "./components/header"
 import { IconButton } from "./components/icon-button"
 import { Tooltip } from "./components/tooltip"
+import { AppFragments } from "./fragments"
 import { Router } from "./utils"
 import { useDisclosure } from "./utils/Hooks"
 
@@ -45,11 +46,13 @@ function App() {
     return (
         <BrowserRouter basename="/">
             <Drawer
-                title="Title"
+                title="Your Twitch Profile"
                 isOpen={profilePanelDisc.isOpen}
                 onClose={profilePanelDisc.onClose}
             >
-                <div className="px-6">Main</div>
+                <Drawer.Body>
+                    <AppFragments.UserProfile />
+                </Drawer.Body>
             </Drawer>
 
             <div className="flex h-[100vh] w-full flex-col">

@@ -35,7 +35,7 @@ module.exports = {
                     separator: "#0505050F",
                 },
                 brand: {
-                    twitch: "#b9a3e3",
+                    twitch: "#6441a5",
                 },
             },
         },
