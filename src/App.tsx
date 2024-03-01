@@ -1,3 +1,4 @@
+import { Variants, motion } from "framer-motion"
 import { IconContext } from "react-icons/lib"
 import {
     PiArrowRightBold,
@@ -12,11 +13,34 @@ import { Drawer } from "./components/drawer"
 import { Footer } from "./components/footer"
 import { Header } from "./components/header"
 import { IconButton } from "./components/icon-button"
+import { Tooltip } from "./components/tooltip"
 import { Router } from "./utils"
 import { useDisclosure } from "./utils/Hooks"
 
 function App() {
     const profilePanelDisc = useDisclosure()
+
+    const logoVariant: Variants = {
+        hover: {
+            color: "#135CFE",
+        },
+    }
+
+    const Logo = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+        const { children, href } = props
+        return (
+            <motion.a
+                variants={logoVariant}
+                whileHover={"hover"}
+                className="cursor-pointer"
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+            >
+                {children}
+            </motion.a>
+        )
+    }
 
     return (
         <BrowserRouter basename="/">
@@ -63,16 +87,30 @@ function App() {
 
                 <div className="flex-0">
                     <Footer>
-                        <div className="text-gray-default flex w-full justify-between">
+                        <div className="flex w-full justify-between text-gray-default">
                             <div>
                                 <p>Designed and implemented by Nikko</p>
                             </div>
 
                             <IconContext.Provider value={{ size: "24px" }}>
                                 <div className="flex gap-6">
-                                    <PiTwitchLogoBold />
-                                    <PiDiscordLogoBold />
-                                    <PiGithubLogoBold />
+                                    <Tooltip label="Twitch">
+                                        <Logo href="https://www.twitch.tv/cookiecollie">
+                                            <PiTwitchLogoBold />
+                                        </Logo>
+                                    </Tooltip>
+
+                                    <Tooltip label="Discord">
+                                        <Logo href="https://discordapp.com/users/845590906543407104">
+                                            <PiDiscordLogoBold />
+                                        </Logo>
+                                    </Tooltip>
+
+                                    <Tooltip label="Github">
+                                        <Logo href="https://github.com/cookiecollie">
+                                            <PiGithubLogoBold />
+                                        </Logo>
+                                    </Tooltip>
                                 </div>
                             </IconContext.Provider>
                         </div>

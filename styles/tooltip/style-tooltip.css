@@ -3,7 +3,7 @@
 }
 
 .tooltip-wrapper {
-    @apply absolute flex w-full justify-center;
+    @apply absolute left-1/2 flex w-full justify-center;
 }
 
 .tooltip-wrapper {

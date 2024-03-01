@@ -5,3 +5,11 @@ export const getAllChatters = async (onFetch: (res: any) => void) => {
         onFetch(res.data.data)
     })
 }
+
+export const getDadJokes = async () => {
+    return await axios.get("https://icanhazdadjoke.com/", {
+        headers: {
+            Accept: "text/plain",
+        },
+    })
+}

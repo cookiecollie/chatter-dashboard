@@ -1,4 +1,4 @@
-import { PiArrowLeft, PiArrowLeftBold } from "react-icons/pi"
+import { PiArrowLeftBold } from "react-icons/pi"
 import { Button } from "../../components/button"
 import { LinkButton } from "../../components/link-button"
 
@@ -17,7 +17,7 @@ export const NotFound = (props: NotFoundProps) => {
             </div>
 
             <div className="flex items-center">
-                <Button variant="ghost" icon={<PiArrowLeftBold />}>
+                <Button variant="ghost" iconLeft={<PiArrowLeftBold />}>
                     Back to home
                 </Button>
 
