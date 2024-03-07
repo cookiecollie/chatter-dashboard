@@ -19,3 +19,12 @@ export const useToggle = (initial = false) => {
 
     return { state, toggle }
 }
+
+export const getTokenState = () => {
+    const tokenState = document.cookie
+        .split("; ")
+        .filter((r) => r.startsWith("token_state="))
+        .map((c) => c.split("=")[1])[0]
+
+    return tokenState
+}
