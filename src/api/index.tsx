@@ -12,10 +12,20 @@ export const getClientId = async () => {
     return await axios.get(`${API_URL}/twitch/client-id`)
 }
 
-export const authenticateChatter = async (code: string) => {
-    return await axios.get(`${API_URL}/chatter/auth/${code}`, {
-        withCredentials: true,
-    })
+export const login = async (code: string) => {
+    return await axios.post(
+        `${API_URL}/chatter/login`,
+        { code: code },
+        { withCredentials: true }
+    )
+}
+
+export const logout = async () => {
+    return await axios.post(
+        `${API_URL}/chatter/logout`,
+        {},
+        { withCredentials: true }
+    )
 }
 
 export const getDadJokes = async () => {

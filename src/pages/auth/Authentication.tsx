@@ -1,7 +1,8 @@
+import { HttpStatusCode } from "axios"
 import { useEffect, useRef, useState } from "react"
 import { PiArrowLeftBold } from "react-icons/pi"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import { authenticateChatter } from "../../api"
+import { login } from "../../api"
 import { Button } from "../../components/button"
 
 export const Authentication = () => {
@@ -22,13 +23,19 @@ export const Authentication = () => {
         ) {
             preventRunTwice.current = true
             if (code) {
-                authenticateChatter(code)
-                    .catch((error) => console.log(error))
-                    .then(() => {
-                        setTimeout(() => {
-                            nav("/")
-                        }, 2000)
+                login(code)
+                    .then((res) => {
+                        console.log(res)
+
+                        if (res.status === HttpStatusCode.Ok) {
+                            setTimeout(() => {
+                                nav("/")
+                            }, 2000)
+                        } else {
+                            console.log(res.data)
+                        }
                     })
+                    .catch((error) => console.log(error))
             }
         }
     }, [])

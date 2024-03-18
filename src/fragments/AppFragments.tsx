@@ -10,11 +10,11 @@ interface UserProfileProps {
 export const UserProfile = (props: UserProfileProps) => {
     const { loginHandler } = props
 
-    const tokenState = Hooks.getTokenState()
+    const isLoggedIn = Hooks.getToken("is_exist").value
 
     return (
         <>
-            {tokenState ? (
+            {isLoggedIn ? (
                 <div className="flex flex-col items-center gap-8">
                     <div className="flex flex-col gap-2">
                         <div className="flex flex-col items-center gap-4 text-2xl font-medium">

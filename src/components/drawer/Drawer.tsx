@@ -21,7 +21,7 @@ export const Drawer = (props: DrawerProps) => {
     return (
         <AnimatePresence>
             {isOpen && (
-                <>
+                <div className="absolute z-10 h-full w-full">
                     <motion.div
                         variants={DrawerVariant.Backdrop}
                         initial="closed"
@@ -75,7 +75,7 @@ export const Drawer = (props: DrawerProps) => {
                             </div>
                         </motion.div>
                     </motion.div>
-                </>
+                </div>
             )}
         </AnimatePresence>
     )

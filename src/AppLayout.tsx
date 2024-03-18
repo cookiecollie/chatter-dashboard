@@ -1,5 +1,5 @@
 import { Variants, motion } from "framer-motion"
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { IconContext } from "react-icons/lib"
 import {
     PiArrowRightBold,
@@ -8,7 +8,8 @@ import {
     PiListBold,
     PiTwitchLogoBold,
 } from "react-icons/pi"
-import { getClientId } from "./api"
+import { useLocation, useNavigate } from "react-router-dom"
+import { getClientId, logout } from "./api"
 import { Button } from "./components/button"
 import { Drawer } from "./components/drawer"
 import { Footer } from "./components/footer"
@@ -16,15 +17,21 @@ import { Header } from "./components/header"
 import { IconButton } from "./components/icon-button"
 import { Tooltip } from "./components/tooltip"
 import { AppFragments } from "./fragments"
-import { Hooks } from "./utils"
 import { useDisclosure } from "./utils/Hooks"
 
 interface AppLayoutProps extends React.PropsWithChildren {}
 
 export const AppLayout = (props: AppLayoutProps) => {
-    const { children } = props
+    const location = useLocation()
+    const nav = useNavigate()
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-    const tokenState = Hooks.getTokenState()
+    useEffect(() => {
+        const isExist = document.cookie.includes("is_exist")
+        isExist ? setIsLoggedIn(true) : setIsLoggedIn(false)
+    }, [location.pathname])
+
+    const { children } = props
 
     const profilePanelDisc = useDisclosure()
 
@@ -53,9 +60,19 @@ export const AppLayout = (props: AppLayoutProps) => {
     const twitchAuthRedirector = useRef<HTMLAnchorElement>(null!)
 
     const twitchLoginHandler = () => {
-        getClientId().then((res) => {
-            twitchAuthRedirector.current.href = `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${res.data.id}&redirect_uri=http://localhost:5173/twitch-auth&scope=`
-            twitchAuthRedirector.current.click()
+        getClientId()
+            .then((res) => {
+                twitchAuthRedirector.current.href = `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${res.data.id}&redirect_uri=http://localhost:5173/twitch-auth&scope=`
+                twitchAuthRedirector.current.click()
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const handleLogout = () => {
+        logout().then(() => {
+            nav(0)
         })
     }
 
@@ -95,8 +112,8 @@ export const AppLayout = (props: AppLayoutProps) => {
                         </Header.Section>
 
                         <Header.Section>
-                            {tokenState ? (
-                                <Button>Logout</Button>
+                            {isLoggedIn ? (
+                                <Button onClick={handleLogout}>Logout</Button>
                             ) : (
                                 <>
                                     <Button

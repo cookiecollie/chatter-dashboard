@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 export const useDisclosure = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -20,11 +20,16 @@ export const useToggle = (initial = false) => {
     return { state, toggle }
 }
 
-export const getTokenState = () => {
-    const tokenState = document.cookie
-        .split("; ")
-        .filter((r) => r.startsWith("token_state="))
-        .map((c) => c.split("=")[1])[0]
+export const getToken = (tokenName: string) => {
+    const tokens = document.cookie.split(";")
 
-    return tokenState
+    const valueRef = useRef("")
+
+    tokens.forEach((token) => {
+        if (token.includes(tokenName)) valueRef.current = token.split("=")[1]
+    })
+
+    const value = valueRef.current
+
+    return { value }
 }
