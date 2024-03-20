@@ -1,16 +1,15 @@
 import { motion } from "framer-motion"
 import React, { useState } from "react"
-import { Link, To } from "react-router-dom"
+import { Link, To, useLocation } from "react-router-dom"
 import { HeaderVariant } from "../../anims"
 import { Separator } from "../separator"
 
 interface HeaderProps {
     children?: React.ReactNode[] | React.ReactNode
-
     alignment?: "left" | "middle" | "right"
 }
 
-export const Header = (props: HeaderProps) => {
+export const Navbar = (props: HeaderProps) => {
     const { children, alignment = "middle" } = props
 
     const childrenArray = React.Children.toArray(children)
@@ -21,7 +20,7 @@ export const Header = (props: HeaderProps) => {
 
     return (
         <div className="px-10">
-            <header className="flex h-20 items-center justify-between gap-x-12">
+            <div className="flex h-20 items-center justify-between gap-x-12">
                 {childrenArray[0] && (
                     <div
                         className={`flex h-full items-center justify-start ${alignment === "left" ? "" : "flex-1"}`}
@@ -43,7 +42,7 @@ export const Header = (props: HeaderProps) => {
                         {childrenArray[2]}
                     </div>
                 )}
-            </header>
+            </div>
 
             <Separator />
         </div>
@@ -57,7 +56,7 @@ const Section = (props: HeaderSectionProps) => {
     return <div {...others}>{children}</div>
 }
 
-Header.Section = Section
+Navbar.Section = Section
 
 interface NavProps extends React.PropsWithChildren {
     to: To
@@ -68,12 +67,20 @@ const Nav = (props: NavProps) => {
 
     const [isHover, setIsHover] = useState(false)
 
+    const location = useLocation()
+
     return (
         <motion.div
             className="relative font-medium"
             variants={HeaderVariant.Nav}
             initial="hoverOut"
-            animate={isHover ? "hoverIn" : "hoverOut"}
+            animate={
+                location.pathname === to
+                    ? "hoverIn"
+                    : isHover
+                      ? "hoverIn"
+                      : "hoverOut"
+            }
             onPointerEnter={() => setIsHover(true)}
             onPointerLeave={() => setIsHover(false)}
         >
@@ -84,13 +91,19 @@ const Nav = (props: NavProps) => {
                     className="absolute h-full bg-primary"
                     variants={HeaderVariant.NavIndicator}
                     initial="hoverOut"
-                    animate={isHover ? "hoverIn" : "hoverOut"}
+                    animate={
+                        location.pathname === to
+                            ? "hoverIn"
+                            : isHover
+                              ? "hoverIn"
+                              : "hoverOut"
+                    }
                 />
             </motion.div>
         </motion.div>
     )
 }
-Header.Nav = Nav
+Navbar.Nav = Nav
 
 interface NavGroup extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -102,4 +115,4 @@ const NavGroup = (props: NavGroup) => {
         </div>
     )
 }
-Header.NavGroup = NavGroup
+Navbar.NavGroup = NavGroup

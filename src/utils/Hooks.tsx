@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export const useDisclosure = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -32,4 +32,24 @@ export const getToken = (tokenName: string) => {
     const value = valueRef.current
 
     return { value }
+}
+
+const getWindowDimension = () => {
+    const { innerWidth: width, innerHeight: height } = window
+    return { width, height }
+}
+
+export const useWindowDimension = () => {
+    const [windowDimension, setWindowDimension] = useState(getWindowDimension())
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowDimension(getWindowDimension())
+        }
+
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
+
+    return windowDimension
 }

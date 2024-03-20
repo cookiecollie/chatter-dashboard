@@ -25,9 +25,12 @@ export const Authentication = () => {
             if (code) {
                 login(code)
                     .then((res) => {
-                        console.log(res)
-
                         if (res.status === HttpStatusCode.Ok) {
+                            localStorage.setItem(
+                                "chatter_data",
+                                JSON.stringify(res.data.data)
+                            )
+
                             setTimeout(() => {
                                 nav("/")
                             }, 2000)

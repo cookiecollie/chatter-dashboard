@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import { PiTwitchLogoBold } from "react-icons/pi"
 import { Button } from "../components/button"
 import { Image } from "../components/image"
@@ -12,6 +13,27 @@ export const UserProfile = (props: UserProfileProps) => {
 
     const isLoggedIn = Hooks.getToken("is_exist").value
 
+    const [profile, setProfile] = useState<{
+        display_name: string
+        description: string
+        profile_image_url: string
+        login: string
+    }>({
+        description: "",
+        display_name: "",
+        login: "",
+        profile_image_url: "",
+    })
+
+    useEffect(() => {
+        const localProfile = localStorage.getItem("chatter_data")
+        if (localProfile) {
+            setProfile(JSON.parse(localProfile))
+        } else {
+            // Handle no info returned
+        }
+    }, [])
+
     return (
         <>
             {isLoggedIn ? (
@@ -19,44 +41,20 @@ export const UserProfile = (props: UserProfileProps) => {
                     <div className="flex flex-col gap-2">
                         <div className="flex flex-col items-center gap-4 text-2xl font-medium">
                             <div className="aspect-square w-48 overflow-hidden rounded-2xl">
-                                <Image src="https://static-cdn.jtvnw.net/jtv_user_pictures/b5235413-c5b7-4b70-9444-b5de000a846d-profile_image-300x300.png" />
+                                <Image src={profile.profile_image_url} />
                             </div>
-                            <p>CookieCollie</p>
+                            <p>{profile.display_name}</p>
                         </div>
 
                         <div className="flex w-full flex-col gap-2">
                             <p className="text-lg font-medium">About</p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation
-                                ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in
-                                reprehenderit in voluptate velit esse cillum
-                                dolore eu fugiat nulla pariatur. Excepteur sint
-                                occaecat cupidatat non proident, sunt in culpa
-                                qui officia deserunt mollit anim id est laborum.
-                            </p>
-
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation
-                                ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in
-                                reprehenderit in voluptate velit esse cillum
-                                dolore eu fugiat nulla pariatur. Excepteur sint
-                                occaecat cupidatat non proident, sunt in culpa
-                                qui officia deserunt mollit anim id est laborum.
-                            </p>
+                            <p>{profile.description}</p>
                         </div>
                     </div>
 
                     <div>
                         <a
-                            href="https://www.twitch.tv/cookiecollie"
+                            href={`https://www.twitch.tv/${profile.login}`}
                             target="_blank"
                             rel="noreferrer"
                         >

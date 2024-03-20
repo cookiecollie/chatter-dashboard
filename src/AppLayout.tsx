@@ -10,11 +10,14 @@ import {
 } from "react-icons/pi"
 import { useLocation, useNavigate } from "react-router-dom"
 import { getClientId, logout } from "./api"
+import { Avatar } from "./components/avatar"
 import { Button } from "./components/button"
 import { Drawer } from "./components/drawer"
+import { Dropdown } from "./components/dropdown"
 import { Footer } from "./components/footer"
-import { Header } from "./components/header"
 import { IconButton } from "./components/icon-button"
+import { Navbar } from "./components/navbar"
+import { Separator } from "./components/separator"
 import { Tooltip } from "./components/tooltip"
 import { AppFragments } from "./fragments"
 import { useDisclosure } from "./utils/Hooks"
@@ -76,6 +79,8 @@ export const AppLayout = (props: AppLayoutProps) => {
         })
     }
 
+    const chatterData = JSON.parse(localStorage.getItem("chatter_data")!)
+
     return (
         <>
             <Drawer
@@ -91,9 +96,9 @@ export const AppLayout = (props: AppLayoutProps) => {
             </Drawer>
 
             <div className="flex h-[100vh] w-full flex-col">
-                <div className="flex-0">
-                    <Header>
-                        <Header.Section>
+                <header className="flex-0">
+                    <Navbar>
+                        <Navbar.Section>
                             <IconButton
                                 variant="ghost"
                                 colorScheme="neutral"
@@ -101,19 +106,67 @@ export const AppLayout = (props: AppLayoutProps) => {
                             >
                                 <PiListBold />
                             </IconButton>
-                        </Header.Section>
+                        </Navbar.Section>
 
-                        <Header.Section>
-                            <Header.NavGroup>
-                                <Header.Nav to="/">Home</Header.Nav>
-                                <Header.Nav to="/chatters">Chatters</Header.Nav>
-                                <Header.Nav to="#">Coming soon</Header.Nav>
-                            </Header.NavGroup>
-                        </Header.Section>
+                        <Navbar.Section>
+                            <Navbar.NavGroup>
+                                <Navbar.Nav to="/">Home</Navbar.Nav>
+                                <Navbar.Nav to="/chatters">Chatters</Navbar.Nav>
+                                <Navbar.Nav to="#">Coming soon</Navbar.Nav>
+                            </Navbar.NavGroup>
+                        </Navbar.Section>
 
-                        <Header.Section>
+                        <Navbar.Section>
                             {isLoggedIn ? (
-                                <Button onClick={handleLogout}>Logout</Button>
+                                <>
+                                    <Dropdown>
+                                        <Dropdown.Label>
+                                            <div className="flex cursor-pointer items-center gap-4 text-lg">
+                                                <Avatar
+                                                    src={
+                                                        chatterData.profile_image_url
+                                                    }
+                                                />
+                                            </div>
+                                        </Dropdown.Label>
+
+                                        <Dropdown.List>
+                                            <Dropdown.Section>
+                                                <div>
+                                                    <p>Hello there!</p>
+                                                    <p className="font-medium">
+                                                        {
+                                                            chatterData.display_name
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </Dropdown.Section>
+
+                                            <Separator />
+
+                                            <Dropdown.Item>
+                                                Item 1
+                                            </Dropdown.Item>
+
+                                            <Dropdown.Item>
+                                                Item 2
+                                            </Dropdown.Item>
+
+                                            <Dropdown.Item>
+                                                Item 3
+                                            </Dropdown.Item>
+
+                                            <Dropdown.Group label="Group">
+                                                <Dropdown.Item>
+                                                    Sub 1
+                                                </Dropdown.Item>
+                                                <Dropdown.Item>
+                                                    Sub 2
+                                                </Dropdown.Item>
+                                            </Dropdown.Group>
+                                        </Dropdown.List>
+                                    </Dropdown>
+                                </>
                             ) : (
                                 <>
                                     <Button
@@ -130,9 +183,9 @@ export const AppLayout = (props: AppLayoutProps) => {
                                     />
                                 </>
                             )}
-                        </Header.Section>
-                    </Header>
-                </div>
+                        </Navbar.Section>
+                    </Navbar>
+                </header>
 
                 <div className="flex-1">{children}</div>
 

@@ -3,6 +3,7 @@
 @import "./menu/style-menu.css";
 @import "./icon-button/style-icon-button.css";
 @import "./modal/style-modal.css";
+@import "./dropdown/dropdown.css";
 
 @tailwind base;
 @tailwind components;
