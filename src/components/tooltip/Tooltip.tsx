@@ -8,7 +8,9 @@ import {
     useHover,
     useInteractions,
 } from "@floating-ui/react"
+import { AnimatePresence, motion } from "framer-motion"
 import React, { HTMLAttributes, useRef, useState } from "react"
+import { TooltipVariants } from "../../anims"
 
 interface TootltipProps extends React.PropsWithChildren {
     arrowHeight?: number
@@ -46,6 +48,8 @@ export const Tooltip = (props: TootltipProps) => {
         }
     })
 
+    const contentVariant = TooltipVariants.ContentVariant(context.placement)
+
     return (
         <div className="tooltip">
             <div
@@ -56,23 +60,35 @@ export const Tooltip = (props: TootltipProps) => {
                 {filteredChildren.anchor}
             </div>
 
-            {isOpen && (
-                <div
-                    ref={refs.setFloating}
-                    style={floatingStyles}
-                    {...getFloatingProps()}
-                    className="content"
-                >
-                    <FloatingArrow
-                        context={context}
-                        ref={arrowRef}
-                        className="arrow"
-                        height={arrowHeight}
-                        width={arrowHeight * 2}
-                    />
-                    {filteredChildren.content}
-                </div>
-            )}
+            <AnimatePresence>
+                {isOpen && (
+                    <div
+                        ref={refs.setFloating}
+                        style={floatingStyles}
+                        {...getFloatingProps()}
+                    >
+                        <motion.div
+                            className="content"
+                            variants={contentVariant}
+                            initial="hidden"
+                            animate="shown"
+                            exit="hidden"
+                            transition={{
+                                duration: 0.2,
+                            }}
+                        >
+                            <FloatingArrow
+                                context={context}
+                                ref={arrowRef}
+                                className="arrow"
+                                height={arrowHeight}
+                                width={arrowHeight * 2}
+                            />
+                            {filteredChildren.content}
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }

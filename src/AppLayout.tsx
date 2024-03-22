@@ -16,10 +16,9 @@ import { Dropdown } from "./components/dropdown"
 import { Footer } from "./components/footer"
 import { IconButton } from "./components/icon-button"
 import { Navbar } from "./components/navbar"
-import { AppFragments } from "./fragments"
-import { useDisclosure } from "./utils/Hooks"
 import { Separator } from "./components/separator"
 import { Tooltip } from "./components/tooltip"
+import { useDisclosure } from "./utils/Hooks"
 
 interface AppLayoutProps extends React.PropsWithChildren {}
 
@@ -35,7 +34,17 @@ export const AppLayout = (props: AppLayoutProps) => {
 
     const { children } = props
 
-    const profilePanelDisc = useDisclosure()
+    const {
+        isOpen: profileIsOpen,
+        onClose: profileOnClose,
+        onOpen: profileOnOpen,
+    } = useDisclosure()
+
+    const {
+        isOpen: navIsOpen,
+        onClose: navOnClose,
+        onOpen: navOnOpen,
+    } = useDisclosure()
 
     const logoVariant: Variants = {
         hover: {
@@ -82,16 +91,12 @@ export const AppLayout = (props: AppLayoutProps) => {
 
     return (
         <>
-            <Drawer
-                title="Your Twitch Profile"
-                isOpen={profilePanelDisc.isOpen}
-                onClose={profilePanelDisc.onClose}
-            >
-                <Drawer.Body>
-                    <AppFragments.UserProfile
-                        loginHandler={twitchLoginHandler}
-                    />
-                </Drawer.Body>
+            <Drawer isOpen={navIsOpen} onClose={navOnClose}>
+                <Drawer.Body>Nav</Drawer.Body>
+            </Drawer>
+
+            <Drawer isOpen={profileIsOpen} onClose={profileOnClose}>
+                <Drawer.Body>Profile</Drawer.Body>
             </Drawer>
 
             <div className="flex h-[100vh] w-full flex-col">
@@ -101,7 +106,7 @@ export const AppLayout = (props: AppLayoutProps) => {
                             <IconButton
                                 variant="ghost"
                                 colorScheme="neutral"
-                                onClick={profilePanelDisc.onOpen}
+                                onClick={navOnOpen}
                             >
                                 <PiListBold />
                             </IconButton>
@@ -170,7 +175,9 @@ export const AppLayout = (props: AppLayoutProps) => {
 
                                             <Separator />
 
-                                            <Dropdown.Item>
+                                            <Dropdown.Item
+                                                onClick={profileOnOpen}
+                                            >
                                                 Profile
                                             </Dropdown.Item>
 
