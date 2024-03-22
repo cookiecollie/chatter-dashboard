@@ -1,53 +1,92 @@
-import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
-import { Variant } from "../../anims"
+import {
+    FloatingArrow,
+    arrow,
+    flip,
+    offset,
+    shift,
+    useFloating,
+    useHover,
+    useInteractions,
+} from "@floating-ui/react"
+import React, { HTMLAttributes, useRef, useState } from "react"
 
-interface TooltipProps extends React.HTMLAttributes<HTMLSpanElement> {
-    position?: "top" | "left" | "right" | "bottom"
-    label: string
-    onAnimationComplete?: () => void
+interface TootltipProps extends React.PropsWithChildren {
+    arrowHeight?: number
+    gap?: number
 }
+export const Tooltip = (props: TootltipProps) => {
+    const { children, arrowHeight = 8, gap = 8 } = props
 
-export const Tooltip = (props: TooltipProps) => {
-    const { position = "top", children, label, onAnimationComplete } = props
+    const [isOpen, setIsOpen] = useState(false)
+    const arrowRef = useRef(null)
 
-    const [isHovered, setIsHovered] = useState(false)
+    const { refs, floatingStyles, context } = useFloating({
+        open: isOpen,
+        onOpenChange: setIsOpen,
+        placement: "top",
+        middleware: [
+            offset(arrowHeight + gap),
+            shift({ padding: 16 }),
+            flip(),
+            arrow({ element: arrowRef, padding: 16 }),
+        ],
+    })
+    const hover = useHover(context)
+    const { getReferenceProps, getFloatingProps } = useInteractions([hover])
 
-    const checkTooltipInView = () => {}
+    const filteredChildren: {
+        anchor: React.ReactElement
+        content: React.ReactElement
+    } = { anchor: <></>, content: <></> }
 
-    const animVariants = {
-        top: Variant.FadeVertical(4),
-        bottom: Variant.FadeVertical(-4),
-        left: undefined,
-        right: undefined,
-    }
+    React.Children.forEach(children, (child) => {
+        if (React.isValidElement(child)) {
+            if (child.type === Anchor) filteredChildren.anchor = child
+            else if (child.type === Content) filteredChildren.content = child
+        }
+    })
 
     return (
         <div className="tooltip">
             <div
-                onPointerEnter={() => setIsHovered(true)}
-                onPointerLeave={() => setIsHovered(false)}
+                ref={refs.setReference}
+                {...getReferenceProps()}
+                className="anchor"
             >
-                {children}
+                {filteredChildren.anchor}
             </div>
 
-            <AnimatePresence onExitComplete={onAnimationComplete}>
-                {isHovered && (
-                    <motion.div
-                        className={`tooltip-wrapper ${position} ${isHovered ? "inline" : ""}`}
-                        variants={animVariants[position]}
-                        initial="start"
-                        animate="end"
-                        exit={"start"}
-                    >
-                        <div className="relative">
-                            <div className={`tooltip-content ${position}`}>
-                                {label}
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {isOpen && (
+                <div
+                    ref={refs.setFloating}
+                    style={floatingStyles}
+                    {...getFloatingProps()}
+                    className="content"
+                >
+                    <FloatingArrow
+                        context={context}
+                        ref={arrowRef}
+                        className="arrow"
+                        height={arrowHeight}
+                        width={arrowHeight * 2}
+                    />
+                    {filteredChildren.content}
+                </div>
+            )}
         </div>
     )
 }
+
+interface AnchorProps extends HTMLAttributes<HTMLDivElement> {}
+const Anchor = (props: AnchorProps) => {
+    const { children } = props
+    return <div {...props}>{children}</div>
+}
+Tooltip.Anchor = Anchor
+
+interface ContentProps extends HTMLAttributes<HTMLDivElement> {}
+const Content = (props: ContentProps) => {
+    const { children } = props
+    return <div {...props}>{children}</div>
+}
+Tooltip.Content = Content

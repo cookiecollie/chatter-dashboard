@@ -5,7 +5,7 @@
 }
 
 .dropdown-content {
-    @apply w-full min-w-48 overflow-hidden rounded-lg bg-[#fff];
+    @apply w-full min-w-48 rounded-lg bg-[#fff];
 }
 
 .dropdown-arrow {

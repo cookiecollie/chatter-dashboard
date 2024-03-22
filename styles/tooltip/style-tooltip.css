@@ -1,36 +1,16 @@
 .tooltip {
-    @apply relative;
-}
+    filter: drop-shadow(0 4px 6px rgb(0 0 0/0.1))
+        drop-shadow(0 -1px 6px rgb(0 0 0/0.1));
+    @apply z-10;
 
-.tooltip-wrapper {
-    @apply absolute left-1/2 flex w-full justify-center;
-}
-
-.tooltip-wrapper {
-    &.top {
-        @apply bottom-full mb-2;
-    }
-}
-
-.tooltip-content {
-    @apply absolute w-fit translate-x-[-50%] whitespace-nowrap rounded bg-secondary px-4 py-1 text-center;
-}
-
-.tooltip-content::after {
-    content: "";
-}
-
-.tooltip-content {
-    &.top {
-        @apply bottom-full;
-        filter: drop-shadow(0 4px 6px rgb(0 0 0/0.1))
-            drop-shadow(0 -1px 6px rgb(0 0 0/0.1));
+    .anchor {
     }
 
-    &.top::after {
-        @apply absolute left-[50%] top-full -ml-2;
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-top: 8px solid #fff;
+    .content {
+        @apply whitespace-nowrap rounded-lg bg-[#fff] px-4 py-2;
+
+        .arrow {
+            @apply fill-[#fff];
+        }
     }
 }

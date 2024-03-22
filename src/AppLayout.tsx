@@ -3,9 +3,8 @@ import { useEffect, useRef, useState } from "react"
 import { IconContext } from "react-icons/lib"
 import {
     PiArrowRightBold,
-    PiDiscordLogoBold,
-    PiGithubLogoBold,
     PiListBold,
+    PiSignOutBold,
     PiTwitchLogoBold,
 } from "react-icons/pi"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -17,10 +16,10 @@ import { Dropdown } from "./components/dropdown"
 import { Footer } from "./components/footer"
 import { IconButton } from "./components/icon-button"
 import { Navbar } from "./components/navbar"
-import { Separator } from "./components/separator"
-import { Tooltip } from "./components/tooltip"
 import { AppFragments } from "./fragments"
 import { useDisclosure } from "./utils/Hooks"
+import { Separator } from "./components/separator"
+import { Tooltip } from "./components/tooltip"
 
 interface AppLayoutProps extends React.PropsWithChildren {}
 
@@ -120,7 +119,7 @@ export const AppLayout = (props: AppLayoutProps) => {
                             {isLoggedIn ? (
                                 <>
                                     <Dropdown>
-                                        <Dropdown.Label>
+                                        <Dropdown.Anchor>
                                             <div className="flex cursor-pointer items-center gap-4 text-lg">
                                                 <Avatar
                                                     src={
@@ -128,42 +127,54 @@ export const AppLayout = (props: AppLayoutProps) => {
                                                     }
                                                 />
                                             </div>
-                                        </Dropdown.Label>
+                                        </Dropdown.Anchor>
 
                                         <Dropdown.List>
                                             <Dropdown.Section>
-                                                <div>
-                                                    <p>Hello there!</p>
-                                                    <p className="font-medium">
-                                                        {
-                                                            chatterData.display_name
-                                                        }
-                                                    </p>
+                                                <div className="flex w-full items-center justify-between">
+                                                    <div>
+                                                        <p>Hello there!</p>
+                                                        <p className="font-medium">
+                                                            {
+                                                                chatterData.display_name
+                                                            }
+                                                        </p>
+                                                    </div>
+
+                                                    <div>
+                                                        <IconContext.Provider
+                                                            value={{
+                                                                size: "24px",
+                                                            }}
+                                                        >
+                                                            <Tooltip>
+                                                                <Tooltip.Anchor>
+                                                                    <button
+                                                                        className="text-gray-disabled"
+                                                                        onClick={
+                                                                            handleLogout
+                                                                        }
+                                                                    >
+                                                                        <PiSignOutBold />
+                                                                    </button>
+                                                                </Tooltip.Anchor>
+
+                                                                <Tooltip.Content>
+                                                                    Sign Out
+                                                                </Tooltip.Content>
+                                                            </Tooltip>
+                                                        </IconContext.Provider>
+                                                    </div>
                                                 </div>
                                             </Dropdown.Section>
 
                                             <Separator />
 
                                             <Dropdown.Item>
-                                                Item 1
+                                                Profile
                                             </Dropdown.Item>
 
-                                            <Dropdown.Item>
-                                                Item 2
-                                            </Dropdown.Item>
-
-                                            <Dropdown.Item>
-                                                Item 3
-                                            </Dropdown.Item>
-
-                                            <Dropdown.Group label="Group">
-                                                <Dropdown.Item>
-                                                    Sub 1
-                                                </Dropdown.Item>
-                                                <Dropdown.Item>
-                                                    Sub 2
-                                                </Dropdown.Item>
-                                            </Dropdown.Group>
+                                            <Dropdown.Item>Items</Dropdown.Item>
                                         </Dropdown.List>
                                     </Dropdown>
                                 </>
@@ -197,25 +208,7 @@ export const AppLayout = (props: AppLayoutProps) => {
                             </div>
 
                             <IconContext.Provider value={{ size: "24px" }}>
-                                <div className="flex gap-6">
-                                    <Tooltip label="Twitch">
-                                        <Logo href="https://www.twitch.tv/cookiecollie">
-                                            <PiTwitchLogoBold />
-                                        </Logo>
-                                    </Tooltip>
-
-                                    <Tooltip label="Discord">
-                                        <Logo href="https://discordapp.com/users/845590906543407104">
-                                            <PiDiscordLogoBold />
-                                        </Logo>
-                                    </Tooltip>
-
-                                    <Tooltip label="Github">
-                                        <Logo href="https://github.com/cookiecollie">
-                                            <PiGithubLogoBold />
-                                        </Logo>
-                                    </Tooltip>
-                                </div>
+                                <div className="flex gap-6">tooltips</div>
                             </IconContext.Provider>
                         </div>
                     </Footer>

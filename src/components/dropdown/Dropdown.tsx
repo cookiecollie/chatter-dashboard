@@ -1,44 +1,44 @@
 import {
-    FloatingArrow,
-    arrow,
     autoUpdate,
     flip,
     offset,
     shift,
     useFloating,
 } from "@floating-ui/react"
+import { AnimatePresence, motion } from "framer-motion"
 import React, { useEffect, useRef } from "react"
+import { DropdownVariants } from "../../anims"
 import { Hooks } from "../../utils"
 
 interface DropdownProps extends React.PropsWithChildren {
-    arrowHeight?: number
     gap?: number
     closeOnSelect?: boolean
+    children?: [React.ReactElement<AnchorProps>, React.ReactElement<ListProps>]
 }
 
 export const Dropdown = (props: DropdownProps) => {
-    const { children, arrowHeight = 8, gap = 8, closeOnSelect = true } = props
+    const { children, gap = 8, closeOnSelect = true } = props
 
-    const childAsLabel: React.ReactElement[] = []
-    const childAsList: React.ReactElement[] = []
+    const filteredChildren: {
+        anchor: React.ReactElement
+        content: React.ReactElement
+    } = { anchor: <></>, content: <></> }
 
     React.Children.forEach(children, (child) => {
         if (React.isValidElement(child)) {
-            if (child.type === Label) childAsLabel.push(child)
-            else childAsList.push(child)
+            if (child.type === Anchor) filteredChildren.anchor = child
+            else if (child.type === List) filteredChildren.content = child
         }
     })
 
-    const arrowRef = useRef(null)
     const { refs, floatingStyles, context } = useFloating({
         whileElementsMounted: autoUpdate,
         middleware: [
-            offset(arrowHeight + gap),
+            offset(gap),
             shift({
                 padding: 16,
             }),
             flip(),
-            arrow({ element: arrowRef, padding: 16 }),
         ],
     })
 
@@ -49,6 +49,8 @@ export const Dropdown = (props: DropdownProps) => {
     }
 
     const labelRef = useRef<HTMLDivElement>(null!)
+
+    const contentVariant = DropdownVariants.ContentVariant(context.placement)
 
     useEffect(() => {
         const handleClickOutside = (event: PointerEvent) => {
@@ -82,55 +84,69 @@ export const Dropdown = (props: DropdownProps) => {
     return (
         <>
             <div ref={refs.setReference} onClick={toggle}>
-                <div ref={labelRef}>{childAsLabel[0]}</div>
+                <div ref={labelRef}>{filteredChildren.anchor}</div>
             </div>
 
-            {isOpen && (
-                <div
-                    ref={refs.setFloating}
-                    style={floatingStyles}
-                    className="dropdown-container"
-                >
-                    {childAsList[0]}
-
-                    <FloatingArrow
-                        ref={arrowRef}
-                        context={context}
-                        height={arrowHeight}
-                        width={arrowHeight * 2}
-                        className="dropdown-arrow"
-                    />
-                </div>
-            )}
+            <AnimatePresence>
+                {isOpen && (
+                    <div
+                        ref={refs.setFloating}
+                        style={floatingStyles}
+                        className="dropdown-container"
+                    >
+                        <motion.div
+                            variants={contentVariant}
+                            initial="close"
+                            animate="open"
+                            exit="close"
+                            transition={{
+                                ease: "circInOut",
+                                duration: 0.3,
+                                delayChildren: 0.3,
+                                staggerChildren: 0.1,
+                            }}
+                        >
+                            {filteredChildren.content}
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </>
     )
 }
 
-interface LabelProps extends React.HTMLAttributes<HTMLDivElement> {}
-const Label = (props: LabelProps) => {
+interface AnchorProps extends React.HTMLAttributes<HTMLDivElement> {}
+const Anchor = (props: AnchorProps) => {
     const { children, ...others } = props
     return <div {...others}>{children}</div>
 }
-Dropdown.Label = Label
+Dropdown.Anchor = Anchor
 
 interface ListProps extends React.HTMLAttributes<HTMLDivElement> {}
 const List = (props: ListProps) => {
-    const { children, ...others } = props
-    return (
-        <div {...others} className="dropdown-content">
-            {children}
-        </div>
-    )
+    const { children } = props
+    return <motion.div className="dropdown-content">{children}</motion.div>
 }
 Dropdown.List = List
 
 interface ItemProps extends React.HTMLAttributes<HTMLButtonElement> {}
 const Item = (props: ItemProps) => {
     const { children } = props
+
+    const ItemVariant = DropdownVariants.ItemVariant
+
     return (
-        <button className="dropdown-item" id="dropdown-item" {...props}>
-            {children}
-        </button>
+        <motion.div variants={ItemVariant}>
+            <motion.span
+                whileHover={"hover"}
+                variants={{ hover: { x: 4, color: "#135CFE" } }}
+                className="block"
+            >
+                <button {...props} className="dropdown-item" id="dropdown-item">
+                    {children}
+                </button>
+            </motion.span>
+        </motion.div>
     )
 }
 Dropdown.Item = Item
